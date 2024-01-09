@@ -60,15 +60,8 @@ namespace winrt::TreeViewSample::implementation
 		}
 
 		// public events
-		event_token PropertyChanged(PropertyChangedEventHandler const& handler)
-		{
-			return _propertyChanged.add(handler);
-		}
-
-		void PropertyChanged(event_token token)
-		{
-			_propertyChanged.remove(token);
-		}
+		event_token PropertyChanged(PropertyChangedEventHandler const& handler) { return _propertyChanged.add(handler); }
+		void PropertyChanged(event_token token) { _propertyChanged.remove(token); }
 
 	private:
 		event<PropertyChangedEventHandler> _propertyChanged;

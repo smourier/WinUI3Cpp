@@ -13,14 +13,18 @@ using namespace Microsoft::UI::Xaml::Controls;
 
 namespace winrt::TreeViewSample::implementation
 {
-	int32_t MainWindow::MyProperty()
+	hstring MainWindow::MyProperty()
 	{
-		throw hresult_not_implemented();
+		return _myProperty;
 	}
 
-	void MainWindow::MyProperty(int32_t /* value */)
+	void MainWindow::MyProperty(hstring value)
 	{
-		throw hresult_not_implemented();
+		if (_myProperty == value)
+			return;
+
+		_myProperty = value;
+		RaisePropertyChanged(L"MyProperty");
 	}
 
 	void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
@@ -37,4 +41,10 @@ namespace winrt::TreeViewSample::implementation
 
 		myTreeView().ItemsSource(source);
 	}
+
+	void MainWindow::myButton1_Click(IInspectable const&, RoutedEventArgs const&)
+	{
+		MyProperty(L"Changed!");
+	}
 }
+

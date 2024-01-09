@@ -8,10 +8,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        Orientation="Vertical">
-        <Button x:Name="myButton" Click="myButton_Click" HorizontalAlignment="Center">Show Tree View</Button>
-        <TreeView x:Name="myTreeView" HorizontalAlignment="Stretch" ItemTemplateSelector="{StaticResource FileSystemTemplateSelector}" />
+    <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+        <Button
+            x:Name="myButton"
+            HorizontalAlignment="Center"
+            Click="myButton_Click">
+            Show Tree View
+        </Button>
+        <Button
+            x:Name="myButton1"
+            HorizontalAlignment="Center"
+            Click="myButton1_Click"
+            Content="{x:Bind MyProperty, Mode=TwoWay}" />
+        <TreeView
+            x:Name="myTreeView"
+            HorizontalAlignment="Stretch"
+            ItemTemplateSelector="{StaticResource FileSystemTemplateSelector}" />
     </StackPanel>
 </Window>

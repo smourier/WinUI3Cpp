@@ -1,0 +1,16 @@
+namespace TreeViewSample
+{
+	[bindable]
+	[default_interface]
+	runtimeclass FileSystemItem : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+	{
+		FileSystemItem(String fullPath);
+
+		String Name { get; };
+		String FullPath { get; };
+		Boolean IsFolder { get; };
+
+		// note: we cannot bind an IVector<FileSystemItem> to an ItemsSource, only an IVector<Object> (typeless)
+		Windows.Foundation.Collections.IObservableVector<FileSystemItem> Children { get; };
+	}
+}

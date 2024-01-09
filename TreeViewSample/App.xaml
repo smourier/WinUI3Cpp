@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="TreeViewSample.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TreeViewSample">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <!--  Other merged dictionaries here  -->
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="FileTemplate">
+                <TreeViewItem>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </TreeViewItem>
+            </DataTemplate>
+
+            <DataTemplate x:Key="FolderTemplate">
+                <TreeViewItem ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="20" Source="../Assets/folder.png" />
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </TreeViewItem>
+            </DataTemplate>
+
+            <local:FileSystemTemplateSelector
+                x:Key="FileSystemTemplateSelector"
+                FileTemplate="{StaticResource FileTemplate}"
+                FolderTemplate="{StaticResource FolderTemplate}" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

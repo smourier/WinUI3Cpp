@@ -30,13 +30,13 @@ namespace winrt::TreeViewSample::implementation
 	void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
 	{
 		auto source{ single_threaded_observable_vector<TreeViewSample::FileSystemItem>() };
-		
+
 		wchar_t path[1024];
 		GetModuleFileName(nullptr, path, _countof(path));
-		PWSTR out;
-		PathAllocCombine(path, L"..\\..", 0, &out);
-		auto root = make<TreeViewSample::implementation::FileSystemItem>(out);
-		WINRT_IMPL_CoTaskMemFree(out);
+		PWSTR rootPath;
+		PathAllocCombine(path, L"..\\..", 0, &rootPath);
+		auto root = make<TreeViewSample::implementation::FileSystemItem>(rootPath);
+		WINRT_IMPL_CoTaskMemFree(rootPath);
 		source.Append(root);
 
 		myTreeView().ItemsSource(source);
@@ -45,6 +45,30 @@ namespace winrt::TreeViewSample::implementation
 	void MainWindow::myButton1_Click(IInspectable const&, RoutedEventArgs const&)
 	{
 		MyProperty(L"Changed!");
+	}
+
+	void MainWindow::myButton2_Click(IInspectable const&, RoutedEventArgs const&)
+	{
+		auto source{ single_threaded_observable_vector<TreeViewSample::FileSystemItem>() };
+		wchar_t path[1024];
+		GetModuleFileName(nullptr, path, _countof(path));
+		PWSTR rootPath;
+		PathAllocCombine(path, L"..\\..", 0, &rootPath);
+		auto root = make<TreeViewSample::implementation::FileSystemItem>(rootPath);
+		WINRT_IMPL_CoTaskMemFree(rootPath);
+		for (auto const& child : root.Children())
+		{
+			source.Append(child);
+		}
+		myListView().ItemsSource(source);
+
+		DispatcherQueue().TryEnqueue(Microsoft::UI::Dispatching::DispatcherQueuePriority::Low, [source]()
+		{
+			for (auto const& child : source)
+			{
+				child.IsSelected(child.Name().c_str()[0] == 'T');
+			}
+		});
 	}
 }
 

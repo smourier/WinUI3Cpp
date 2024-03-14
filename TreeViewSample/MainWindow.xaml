@@ -16,6 +16,12 @@
             Show Tree View
         </Button>
         <Button
+            x:Name="myButton2"
+            HorizontalAlignment="Center"
+            Click="myButton2_Click">
+            Show List View
+        </Button>
+        <Button
             x:Name="myButton1"
             HorizontalAlignment="Center"
             Click="myButton1_Click"
@@ -24,5 +30,14 @@
             x:Name="myTreeView"
             HorizontalAlignment="Stretch"
             ItemTemplateSelector="{StaticResource FileSystemTemplateSelector}" />
+        <ListView x:Name="myListView" SelectionMode="Multiple">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:FileSystemItem">
+                    <ListViewItem IsSelected="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBlock Text="{x:Bind Name}" />
+                    </ListViewItem>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackPanel>
 </Window>

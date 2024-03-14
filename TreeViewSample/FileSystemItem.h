@@ -13,6 +13,7 @@ namespace winrt::TreeViewSample::implementation
 	{
 		FileSystemItem(hstring const& fullPath)
 		{
+			_isSelected = true;
 			PWSTR out;
 			check_hresult(PathAllocCanonicalize(fullPath.c_str(), PATHCCH_ENSURE_IS_EXTENDED_LENGTH_PATH, &out));
 			_isFolder = GetFileAttributes(out) & FILE_ATTRIBUTE_DIRECTORY;
@@ -26,6 +27,15 @@ namespace winrt::TreeViewSample::implementation
 		bool IsFolder() const { return _isFolder; }
 		hstring FullPath() { return _fullPath; }
 		hstring Name() { return _name; }
+
+		bool IsSelected() const { return _isSelected; }
+		void IsSelected(bool const& selected){
+			if (selected == _isSelected)
+				return;
+			
+			_isSelected = selected;
+			RaisePropertyChanged(L"IsSelected");
+		}
 
 		IObservableVector<TreeViewSample::FileSystemItem> Children()
 		{
@@ -68,6 +78,7 @@ namespace winrt::TreeViewSample::implementation
 		hstring _fullPath;
 		hstring _name;
 		bool _isFolder;
+		bool _isSelected;
 
 		void RaisePropertyChanged(hstring propertyName)
 		{

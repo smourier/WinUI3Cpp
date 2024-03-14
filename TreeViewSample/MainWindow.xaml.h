@@ -32,7 +32,8 @@ namespace winrt::TreeViewSample::implementation
 		void MyProperty(hstring value);
 
 		void myButton_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
-		void myButton1_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+		void myButton1_Click(IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+		void myButton2_Click(IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
 		event_token PropertyChanged(PropertyChangedEventHandler const& handler) { return _propertyChanged.add(handler); }
 		void PropertyChanged(event_token token) { _propertyChanged.remove(token); }

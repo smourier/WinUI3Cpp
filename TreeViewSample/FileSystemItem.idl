@@ -9,6 +9,7 @@ namespace TreeViewSample
 		String Name { get; };
 		String FullPath { get; };
 		Boolean IsFolder { get; };
+		Boolean IsSelected;
 
 		// note: we cannot bind an IVector<FileSystemItem> to an ItemsSource, only an IVector<Object> (typeless)
 		Windows.Foundation.Collections.IObservableVector<FileSystemItem> Children { get; };
